@@ -1,0 +1,10 @@
+{
+	"name": "ls_kivaloans_kv",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://dev-kiva-loans-kv.vault.azure.net/"
+		}
+	}
+}
