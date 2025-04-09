@@ -45,6 +45,7 @@
 					],
 					"storeSettings": {
 						"type": "AzureBlobStorageReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
@@ -68,7 +69,36 @@
 					"expression": {
 						"value": "@equals(length(activity('Verify Files Count').output.childItems), 4)",
 						"type": "Expression"
+					},
+					"ifFalseActivities": [
+						{
+							"name": "Failed expected file count",
+							"type": "Fail",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"message": "Failed expected file count",
+								"errorCode": "-1"
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "Config file does not exist",
+				"type": "Fail",
+				"dependsOn": [
+					{
+						"activity": "Validate Config File Exists",
+						"dependencyConditions": [
+							"Failed"
+						]
 					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"message": "Cannot find the config file",
+					"errorCode": "-1"
 				}
 			},
 			{
