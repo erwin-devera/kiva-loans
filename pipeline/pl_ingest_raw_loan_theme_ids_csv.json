@@ -129,7 +129,7 @@
 					"isSequential": true,
 					"activities": [
 						{
-							"name": "Copy Loan Theme Ids CSV",
+							"name": "Copy Each Raw Kiva Loan CSV Files",
 							"type": "Copy",
 							"dependsOn": [],
 							"policy": {
