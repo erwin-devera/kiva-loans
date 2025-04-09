@@ -1,0 +1,22 @@
+{
+	"name": "ds_raw_files_count",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_ablob_kivaloans",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"container": "raw"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": false,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
