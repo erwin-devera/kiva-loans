@@ -1,0 +1,9 @@
+{
+	"name": "dev-kva-loans-adf",
+	"location": "australiasoutheast",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "488d7fa9-c912-4047-92f6-9494fe98f1bc",
+		"tenantId": "6fdf2366-783b-4cbf-86fb-30aa215dedf0"
+	}
+}
