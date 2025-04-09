@@ -1,0 +1,19 @@
+{
+	"name": "ds_config_fileslist_json",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_ablob_kivaloans",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "files.JSON",
+				"container": "config"
+			}
+		},
+		"schema": {}
+	}
+}
