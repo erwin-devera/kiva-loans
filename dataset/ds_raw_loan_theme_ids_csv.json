@@ -1,0 +1,23 @@
+{
+	"name": "ds_raw_loan_theme_ids_csv",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_ablob_kivaloans",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "loan_theme_ids.csv",
+				"container": "raw"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
