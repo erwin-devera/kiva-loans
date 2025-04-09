@@ -1,0 +1,12 @@
+{
+	"name": "ls_ablob_kivaloans",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobStorage",
+		"typeProperties": {
+			"connectionString": "DefaultEndpointsProtocol=https;AccountName=devkivaloanssa;EndpointSuffix=core.windows.net;",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQEVGODM3M0QyLTlEMzUtNEJBNS1CNUYxLTQ5N0I0MDI0QTMzMl9mNDEwZjI0ZS1jZmE2LTRjNTMtYTZmOS00ODBiMDU2MjAwM2UiDQp9"
+		}
+	}
+}
