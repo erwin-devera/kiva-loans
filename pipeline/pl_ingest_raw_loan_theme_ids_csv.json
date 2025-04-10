@@ -17,7 +17,7 @@
 				}
 			},
 			{
-				"name": "Verify Files Count",
+				"name": "Return Filenames to Process",
 				"type": "GetMetadata",
 				"dependsOn": [
 					{
@@ -58,7 +58,7 @@
 				"type": "IfCondition",
 				"dependsOn": [
 					{
-						"activity": "Verify Files Count",
+						"activity": "Assign file count to variable",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -67,7 +67,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@equals(length(activity('Verify Files Count').output.childItems), 4)",
+						"value": "@equals(variables('count_of_raw_files'), 4)",
 						"type": "Expression"
 					},
 					"ifFalseActivities": [
@@ -159,7 +159,7 @@
 					"isSequential": true,
 					"activities": [
 						{
-							"name": "Copy Each Raw Kiva Loan CSV Files",
+							"name": "Copy Each Raw File",
 							"type": "Copy",
 							"dependsOn": [],
 							"policy": {
@@ -230,8 +230,130 @@
 						}
 					]
 				}
+			},
+			{
+				"name": "Archive Processed File",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Copy Each File",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Get List of Files To Copy').output.value[0].files",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "Archive Each File",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "AzureBlobStorageReadSettings",
+										"recursive": true,
+										"enablePartitionDiscovery": false
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "dw_raw_csv",
+									"type": "DatasetReference",
+									"parameters": {
+										"fileName": {
+											"value": "@item()",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "ds_raw_csv_processed",
+									"type": "DatasetReference",
+									"parameters": {
+										"date_subfolder": "@string(formatDateTime(convertFromUtc(utcNow(), 'AUS Eastern Standard Time'), 'yyyy-MM-dd'))",
+										"fileName": {
+											"value": "@item()",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			},
+			{
+				"name": "Assign file count to variable",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Return Filenames to Process",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "count_of_raw_files",
+					"value": {
+						"value": "@length(activity('Verify Files Count').output.childItems)",
+						"type": "Expression"
+					}
+				}
 			}
 		],
+		"variables": {
+			"count_of_raw_files": {
+				"type": "Integer"
+			}
+		},
 		"annotations": []
 	}
 }

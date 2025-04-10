@@ -1,0 +1,38 @@
+{
+	"name": "ds_raw_csv_processed",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_dl_kivaloans",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"date_subfolder": {
+				"type": "string"
+			},
+			"fileName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().fileName",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@dataset().date_subfolder",
+					"type": "Expression"
+				},
+				"fileSystem": "processed"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
