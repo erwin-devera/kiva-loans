@@ -17,7 +17,7 @@
 				}
 			},
 			{
-				"name": "Verify Files Count",
+				"name": "Return Filenames to Process",
 				"type": "GetMetadata",
 				"dependsOn": [
 					{
@@ -58,7 +58,7 @@
 				"type": "IfCondition",
 				"dependsOn": [
 					{
-						"activity": "Verify Files Count",
+						"activity": "Assign file count to variable",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -67,7 +67,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@equals(length(activity('Verify Files Count').output.childItems), 4)",
+						"value": "@equals(variables('count_of_raw_files'), 4)",
 						"type": "Expression"
 					},
 					"ifFalseActivities": [
@@ -323,8 +323,37 @@
 						}
 					]
 				}
+			},
+			{
+				"name": "Assign file count to variable",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Return Filenames to Process",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "count_of_raw_files",
+					"value": {
+						"value": "@length(activity('Verify Files Count').output.childItems)",
+						"type": "Expression"
+					}
+				}
 			}
 		],
+		"variables": {
+			"count_of_raw_files": {
+				"type": "Integer"
+			}
+		},
 		"annotations": []
 	}
 }
