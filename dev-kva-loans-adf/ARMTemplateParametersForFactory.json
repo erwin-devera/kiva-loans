@@ -1,0 +1,21 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "dev-kva-loans-adf"
+		},
+		"ls_ablob_kivaloans_connectionString": {
+			"value": ""
+		},
+		"ls_dl_kivaloans_accountKey": {
+			"value": ""
+		},
+		"ls_dl_kivaloans_properties_typeProperties_url": {
+			"value": "https://devkivaloansdl.dfs.core.windows.net/"
+		},
+		"ls_kivaloans_kv_properties_typeProperties_baseUrl": {
+			"value": "https://dev-kiva-loans-kv.vault.azure.net/"
+		}
+	}
+}
