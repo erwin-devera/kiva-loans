@@ -343,7 +343,7 @@
 				"typeProperties": {
 					"variableName": "count_of_raw_files",
 					"value": {
-						"value": "@length(activity('Verify Files Count').output.childItems)",
+						"value": "@length(activity('Return Filenames to Process').output.childItems)",
 						"type": "Expression"
 					}
 				}
